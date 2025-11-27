@@ -1,0 +1,27 @@
+const config = {
+    "configurationManager": {
+        "url": "http://config-manager.example.com",
+        "username": "admin",
+        "password": "password123"
+    },
+    "branchSelection": {
+        "defaultBranch": "main"
+    },
+    "build": {
+        "command": "npm run build",
+        "outputDirectory": "build/"
+    },
+    "copyToTarget": {
+        "targetDirectory": "/var/www/html/"
+    },
+    "vdd": {
+        "versionNumber": "1.0.0",
+        "releaseDate": "2024-08-09",
+        "recentFixes": [
+            "Fixed login issue",
+            "Updated API endpoints"
+        ]
+    }
+}
+
+export default config;
