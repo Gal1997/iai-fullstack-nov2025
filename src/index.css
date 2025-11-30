@@ -4,7 +4,6 @@
   margin: 20px;
   align-items: center;
   justify-content: center;
-
 }
 
 .title {
@@ -19,25 +18,7 @@
   justify-content: space-around;
 }
 
-.accordion_container {}
-
 .enable_vdd_container {
   margin-left: 10px;
   margin-bottom: 10px;
-}
-
-
-@media (max-width: 768px) {
-
-  .accordion_container,
-  .buttons_container {
-    scale: 0.9;
-  }
-
-  :root {
-    font-size: 11px;
-  }
-
-
-
 }

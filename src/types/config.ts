@@ -1,3 +1,4 @@
+
 export type ConfigType = {
     configurationManager: {
         url: string;
@@ -17,6 +18,10 @@ export type ConfigType = {
     vdd?: {
         versionNumber: string;
         releaseDate: string;
-        recentFixes: string[];
+        recentFixes: string | string[];
+        /*
+    Since we get raw string from user, and only later we format the data so
+    it will become array of strings, we have these 2 types
+*/
     };
 };

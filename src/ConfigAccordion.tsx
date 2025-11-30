@@ -11,7 +11,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Controller, type Control, type RegisterOptions } from "react-hook-form";
 
-import type { ConfigType } from '../types/config';
+import type { ConfigType } from './types/config';
 
 /* Here we configure what props each input field should send to the factory function
  It sends:
@@ -20,7 +20,7 @@ import type { ConfigType } from '../types/config';
     - control: The react-hook-form Control<ConfigType> instance
 
   Optional:
-    - rules: Validation rules (we use 'required' and URL validation)
+    - rules: Validation rules (we use 'required' on everything and we also have 1 URL validation)
     - disabled: Used for VDD, if user doesn't want vdd then VDD input will be disabled
 
  */
@@ -51,7 +51,7 @@ type ConfigAccordionProps = {
 
    To minimize code, we create a 'factory' function that can return all that, we just need
    to give it path + label. For example: 'build.command' + 'Build Command'
-   and it will return a MUI TextField wrapped inside a react-hook-form Controller
+   and it will return a MUI TextField wrapped inside a react-hook-form Controller that knows how read/write to currentConfig
 */
 const ControlledField = ({ path, label, control, rules, disabled = false }: ControlledFieldProps) => (
     <Controller
@@ -64,8 +64,8 @@ const ControlledField = ({ path, label, control, rules, disabled = false }: Cont
                 label={label}
                 disabled={disabled}
                 sx={{ m: 1 }}
-                error={!disabled && !!fieldState.error} // If its undefined, meaning theres no error, else this resolves to 'true' and that causes the red border on input and red font for error
-                helperText={!disabled && (fieldState.error?.message ?? null)} // If there's an error, show it (below input), else show nothing
+                error={!disabled && !!fieldState.error} // If component is not disabled, show error depending on !!fieldState.error (if there's no error it means fieldState.error = undefined)
+                helperText={!disabled && (fieldState.error?.message ?? null)} // If component is not disabled and if there's an error, show it (below input), else show nothing
             />
         )}
     />
@@ -218,7 +218,7 @@ const ConfigAccordion = ({ control, VDDenabled, setVDDenabled }: ConfigAccordion
                                 error={VDDenabled && !!fieldState.error}
                                 helperText={VDDenabled && (fieldState.error?.message ?? null)}
                                 slotProps={{
-                                    inputLabel: { shrink: true },// forces label to stay up so it doesnt clash with 'dd-----yyyy' placeholder
+                                    inputLabel: { shrink: true },// forces label to stay up (and not on the input field) so it doesnt clash with 'dd-----yyyy' placeholder
                                     htmlInput: {
                                         max: new Date().toISOString().split('T')[0], // this makes sure maximum date is today (no future dates)
                                     },
